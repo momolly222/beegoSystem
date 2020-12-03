@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+
+    <!--方法一：-->
+    <!-- <link rel="stylesheet" href="/static/css/index.css"> -->
+    <!--方法二：-->
+    {{assets_css "/static/css/index.css"}}
+
+    <!-- <script src="/static/js/base.js"></script> -->
+    {{assets_js "/static/js/base.js"}}
+</head>
+
+<body>
+    <h2>1、模板中绑定基本数据 字符串 数值 布尔值</h2>
+    <p>{{.website}}</p>
+    <p>{{.num}}</p>
+    <p>{{.falg}}</p>
+
+    <br>
+
+    <h2>2、模板中绑定结构体数据</h2>
+    <p>{{.article.Title}}</p>
+    <p>{{.article.Content}}</p>
+
+    <br>
+
+    <h2>模板中定义变量</h2>
+    {{$title := .title}}
+    {{$title}}
+
+    <br>
+
+    <h2>3、模板中循环遍历 range </h2>
+    <ul>
+        {{range $key, $val := .articleList}}
+        <li>{{$key}}---{{$val}}</li>
+        {{end}}
+    </ul>
+
+    <br>
+
+    <h2>4、模板中循环遍历 Map</h2>
+    <ul>
+        {{range $key, $val := .userinfo}}
+        <li>{{$key}}---{{$val}}</li>
+        {{end}}
+    </ul>
+
+    <br>
+
+    <h2>5、模板中循环遍历结构体类型切片</h2>
+    <ul>
+        {{range $key, $val := .articleGroup}}
+        <li>{{$key}}--{{$val.Title}}--{{$val.Content}}</li>
+        {{end}}
+    </ul>
+
+    <br>
+
+    <h2>6、模板中条件判断</h2>
+    {{if .isLogin}}
+    <p>isLogin等于true</p>
+    {{end}}
+
+    {{if .isHome}}
+    <p>isHome等于true</p>
+    {{else}}
+    <p>isHome等于false</p>
+    {{end}}
+
+    <br>
+
+    <h2>7、define 自定义代码块</h2>
+    {{define "aaa"}}
+    <p>这是自定义的代码块</p>
+    <p>111</p>
+    <p>222</p>
+    {{end}}
+
+    <div>
+        {{template "aaa" .}}
+    </div>
+
+    <div>
+        {{template "aaa" .}}
+    </div>
+
+    <br>
+
+    <h2>8、公用模板引用</h2>
+    {{template "/public/footer.html" .}}
+
+    <br>
+
+    <h2>9、格式化时间</h2>
+    {{.now}}<br>
+    {{date .now "Y-m-d H:i:s"}}
+
+    <br>
+
+    <h2>10、字符串的截取</h2>
+    <p>{{.str}}</p>
+    <p>{{substr .str 0 5}}</p>
+
+    <br>
+
+    <h2>11、字符串与html互换渲染</h2>
+    <p>{{.html}}</p>
+    <p>{{.html | html2str}}</p>
+    <p>{{html2str .html}}</p>
+    <p>{{.html | str2html}}</p>
+    <p>{{str2html .html}}</p>
+
+    <br>
+
+    <h2>12、获取配置文件信息</h2>
+    <!--第一个是类型，第二个是需要获取的信息名，最后一个是默认值-->
+    {{config "String" "appname" ""}}
+
+    <br>
+
+    <h2>13、map_get 获取 map 值</h2>
+    {{map_get .m "a"}}<br>
+    {{map_get .m "b" "c"}}
+
+    <br>
+
+    <h2>14、自定义模板函数</h2>
+    <p>{{.website}}</p>
+    <p>{{.website | hi}}</p>
+
+    <br>
+
+    <h2>15、把时间戳转换为格式化字符串</h2>
+    <p>{{.mytime}}</p>
+    <p>{{.mytime | unixToDate}}</p>
+
+    <br>
+
+    <h2>16、把时间格式化的字符串转换成时间戳</h2>
+    <p>{{.myunix}}</p>
+    <p>{{.myunix | dateToUnix}}</p>
+    <p>{{.mytime2 | unixToDate}}</p>
+
+    <br>
+
+    <h2>17、获取 default.go 中的 cookie 信息</h2>
+    {{.cookieUser}}
+
+    <br>
+
+    <h2>18、获取 session 信息</h2>
+    {{.sessionUser}}
+
+</body>
+
+</html>

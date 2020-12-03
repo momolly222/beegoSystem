@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户</title>
+</head>
+
+<body>
+    <form action="/user/doAdd" method="post">
+        用户名 <input type="text" name="username" /><br><br>
+        密 码 <input type="password" name="password" /><br><br>
+        兴 趣
+        <input type="checkbox" name="hobby" value="1" /> 吃饭
+        <input type="checkbox" name="hobby" value="2" /> 睡觉
+        <input type="checkbox" name="hobby" value="3" /> 打豆豆
+        <input type="submit" value="提交" />
+    </form>
+    {{.myunix | unixToDate}}
+</body>
+
+</html>
